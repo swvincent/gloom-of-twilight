@@ -7,6 +7,14 @@
   font-display: block;
 }
 
+@font-face {
+  font-family: "Lato";
+  src: url("fonts/lato-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -56,9 +64,14 @@ figcaption {
   position: absolute;
   right: clamp(1.5rem, 4vw, 4rem);
   bottom: clamp(1.5rem, 4vw, 4rem);
-  font-family: "Chomsky", "Old English Text MT", serif;
-  font-size: clamp(1rem, 2.1vw, 2.6rem);
+  font-family: "Lato", system-ui, sans-serif;
+  font-size: clamp(0.875rem, 1.67vw, 2rem);
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  /* Tracking adds a trailing space after the last letter; pull it back so the
+     line optically aligns with the right gutter. */
+  margin-right: -0.14em;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
 }
 

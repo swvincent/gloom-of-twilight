@@ -28,9 +28,13 @@ No build step, no dependencies, no framework — plain HTML and CSS.
 Fonts are served from `fonts/` rather than a CDN, so the page has no
 third-party requests and renders identically offline.
 
-The page uses **Chomsky** (`chomsky-webfont.woff2`, with a `.woff` fallback), a
-blackletter face, for both the quote and the attribution. The Lato and Playfair
-Display files in `fonts/` are unused by this page and are kept for future use.
+Two faces are in use:
+
+- **Chomsky** (`chomsky-webfont.woff2`, with a `.woff` fallback) — blackletter,
+  for the quote.
+- **Lato** (`lato-400.woff2`) — set uppercase and letterspaced, for the
+  attribution. A contemporary sans reads clearly at small sizes where the
+  blackletter did not.
 
 ## Local development
 

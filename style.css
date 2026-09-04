@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Chomsky";
+  src: url("fonts/chomsky-webfont.woff2") format("woff2"),
+       url("fonts/chomsky-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: #fff;
+  background-color: #12100e;
+  background-image: url("gloom-of-twilight-background.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+figure {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote p {
+  margin: 0;
+  font-family: "Chomsky", "Old English Text MT", serif;
+  font-size: clamp(2rem, 6.2vw, 8rem);
+  line-height: 1.15;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+}
+
+figcaption {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(1.5rem, 4vw, 4rem);
+  font-family: "Chomsky", "Old English Text MT", serif;
+  font-size: clamp(1rem, 2.1vw, 2.6rem);
+  line-height: 1.2;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+}
+
+/* On narrow screens the wrapped quote can reach the corner, so let the
+   attribution sit in normal flow beneath it instead of overlapping. */
+@media (max-width: 480px) {
+  figure {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  figcaption {
+    position: static;
+    align-self: flex-end;
+  }
+}

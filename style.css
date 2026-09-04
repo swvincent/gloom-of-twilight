@@ -74,17 +74,3 @@ figcaption {
   margin-right: -0.14em;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
 }
-
-/* On narrow screens the wrapped quote can reach the corner, so let the
-   attribution sit in normal flow beneath it instead of overlapping. */
-@media (max-width: 480px) {
-  figure {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  figcaption {
-    position: static;
-    align-self: flex-end;
-  }
-}

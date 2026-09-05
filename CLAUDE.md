@@ -81,6 +81,43 @@ Sizing rationale: the image is 3:2 and `background-size: cover` crops the sides 
 so the width needed is `1.5 × viewport height`, not viewport width. At the tallest common phone
 viewport (~932 CSS px) that is ~1398px, which 1536 clears with headroom.
 
+## Icons
+
+Three files at the repo root, all crops of `gloom-of-twilight-background.png`:
+
+- `favicon.ico` — 16, 32 and 48 in the one file. The browser tab.
+- `apple-touch-icon.png` — 180×180. The iOS home screen.
+- `icon-512.png` — 512×512. Android add-to-home-screen and bookmark tiles.
+
+Adding or swapping one is a **three-place change**:
+
+1. the file at the repo root
+2. the `<link>` in `index.html`
+3. the same `<link>` in `404.html`, root-relative
+
+Browsers fetch `/favicon.ico` and `/apple-touch-icon.png` from the root with or without the tags;
+the tags only make it deterministic. Dropping a file in without them still works, which is exactly
+why steps 2 and 3 get forgotten.
+
+The small and large icons use **different crops on purpose**. `favicon.ico` is cut tight on the
+figure, because at 16px anything wider is an indistinct smudge. The two PNGs use a far wider crop —
+tree, figure, horizon, shoreline — that only holds together at 180px and up. Re-cutting one to
+match the other leaves either an illegible tab icon or an empty-looking home-screen icon.
+
+All three take the same white-point lift (`-level 0%,72%`) before resizing. The painting is
+near-black and the figure sits only a few values off its ground; unlifted, the icon has no legible
+edge at small sizes. That lift is why the icons read slightly less dark than the page itself.
+
+**The PNGs are 256-color, and the 16-color rule above does not carry over to them.** The
+background's dither is invisible at 2304px but becomes coarse speckle once downscaled to icon size,
+and 16 colors also drains the blue out of the water. 256 is visually identical to an unquantized
+build at a third the weight.
+
+`icon-512.png` is declared with `sizes="512x512"` and is *not* fetched for the tab — verified in
+Chromium against a cold origin, which requested only `/favicon.ico`. Untested in Firefox and
+Safari. If that ever has to be airtight, the 512 belongs in a `manifest.webmanifest` rather than a
+`<link rel="icon">`, since manifest icons are never tab candidates.
+
 ## Layout constraints
 
 `style.css` has **no layout breakpoints**. All sizing is `clamp()` against viewport
@@ -104,3 +141,7 @@ Two things are easy to break:
 Screenshot at desktop width, then check 320, 375, 412, 768, and a short landscape viewport (e.g.
 667x375). Confirm at each: the attribution is on one line and fully on-screen, it does not overlap
 the wrapped quote, and neither axis scrolls.
+
+Icons are checked separately, and not by screenshotting the page — browsers cache tab icons hard.
+Magnify each size and view it against both a light and a dark tab strip: the icon is close in value
+to a dark tab strip and can disappear into it.

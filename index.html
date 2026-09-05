@@ -6,6 +6,16 @@
   <title>Gloom of Twilight</title>
   <meta name="description" content="her robes are gloom of twilight... - Dead Sea Scrolls (4Q184 1:5)">
   <meta name="theme-color" content="#12100e">
+  <!-- Icons are crops of the background image sharing one white-point lift.
+       favicon.ico holds 16/32/48 of a tight crop on the figure, so the
+       silhouette still reads at 16px; the two PNGs use a wider crop (tree,
+       figure, shoreline) that only holds together at large sizes. Browsers
+       request /favicon.ico and /apple-touch-icon.png from the root with or
+       without these tags -- the tags just make it deterministic. Recheck any
+       replacement at 16px, where the figure is a few pixels wide. -->
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="icon-512.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/chomsky-webfont.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- Background image is AI-generated. Preloads are media-scoped so each viewport

@@ -10,8 +10,8 @@ previewed in a browser first. Show what changed and wait — "looks good" is not
 ## What this is
 
 A single static page (`index.html` + `style.css`) published to GitHub Pages at
-`www.gloomoftwilight.com`: a full-bleed painting with a blackletter quote centered over it and its
-attribution in the bottom-right corner. `mockup.png` is the gitignored design reference.
+`www.gloomoftwilight.com`: a full-bleed AI-generated image with a blackletter quote centered over
+it and its attribution in the bottom-right corner.
 
 There is no build step, no dependencies, no framework, and no test/lint/build commands. Do not add
 a toolchain unless asked.
@@ -72,6 +72,6 @@ Two things are easy to break:
 
 ## Verifying changes
 
-Screenshot against `mockup.png` at desktop width, then check 320, 375, 412, 768, and a short
-landscape viewport (e.g. 667x375). Confirm at each: the attribution is on one line and fully
-on-screen, it does not overlap the wrapped quote, and neither axis scrolls.
+Screenshot at desktop width, then check 320, 375, 412, 768, and a short landscape viewport (e.g.
+667x375). Confirm at each: the attribution is on one line and fully on-screen, it does not overlap
+the wrapped quote, and neither axis scrolls.

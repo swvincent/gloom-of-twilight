@@ -1,6 +1,6 @@
 # Gloom of Twilight
 
-A single static page: a nineteenth-century twilight landscape as a full-bleed
+A single static page: an AI-generated twilight landscape as a full-bleed
 background, with one line of verse centered over it and its source credited in
 the bottom-right corner.
 
@@ -16,7 +16,7 @@ Live at <https://www.gloomoftwilight.com>.
 | --- | --- |
 | `index.html` | The entire page. |
 | `style.css` | All styling. |
-| `gloom-of-twilight-background.png` | The background painting (2304×1536). |
+| `gloom-of-twilight-background.png` | The background image, AI-generated (2304×1536). |
 | `fonts/` | Self-hosted webfonts. |
 | `CNAME` | Custom domain for GitHub Pages. |
 | `.nojekyll` | Tells GitHub Pages to serve the tree as-is instead of running Jekyll. |
@@ -60,6 +60,3 @@ Then visit <http://localhost:8000>.
    `gloomoftwilight.com` to work, add `A` records for it pointing at GitHub's
    Pages IP addresses (listed in GitHub's custom-domain documentation).
 5. Once DNS resolves, enable **Enforce HTTPS** in Settings → Pages.
-
-`mockup.png` is a local design reference and is gitignored, so it never reaches
-the deployed site.

@@ -74,3 +74,13 @@ figcaption {
   margin-right: -0.14em;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
 }
+
+/* Asset selection only, not layout. Portrait phones get a 1536x1024 copy of the
+   background (243 KB vs 468 KB). Sizing is still clamp()-only and the layout is
+   identical at every width - see CLAUDE.md. Kept in sync with the media-scoped
+   preloads in index.html. */
+@media (max-width: 500px) {
+  body {
+    background-image: url("gloom-of-twilight-background-phone.png");
+  }
+}

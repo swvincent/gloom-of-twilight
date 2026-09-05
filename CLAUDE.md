@@ -55,13 +55,37 @@ c.font = '100px serif';     const b = c.measureText(ch).width;
 c.font = '100px monospace'; const d = c.measureText(ch).width;
 ```
 
+## Background image
+
+The background is served in two sizes: `gloom-of-twilight-background.png` (2304×1536) and
+`gloom-of-twilight-background-phone.png` (1536×1024) for portrait phones. Both are 16-color
+indexed PNGs, which is why 3.5 megapixels fits in 468 KB.
+
+Swapping or resizing either one is a **three-place change**:
+
+1. the `.png` at the repo root
+2. the `background-image` in `style.css` — the `body` rule, or the `@media (max-width: 500px)`
+   override
+3. the matching `<link rel="preload" media="...">` in `index.html`
+
+The two preloads' media conditions must stay exact complements of each other and must match the
+`@media` block. Skipping step 3 fails silently and makes phones download *both* files — slower
+than not having the phone variant at all.
+
+Sizing rationale: the image is 3:2 and `background-size: cover` crops the sides on portrait phones,
+so the width needed is `1.5 × viewport height`, not viewport width. At the tallest common phone
+viewport (~932 CSS px) that is ~1398px, which 1536 clears with headroom.
+
 ## Layout constraints
 
-`style.css` has **no media queries and no breakpoints**. All sizing is `clamp()` against viewport
+`style.css` has **no layout breakpoints**. All sizing is `clamp()` against viewport
 width, and the layout is deliberately identical at every screen size — the attribution stays
 bottom-right on phones too. A previous narrow-screen media query that relocated it was removed
 because the inconsistent placement made it look missing. Reach for a `clamp()` adjustment before a
 breakpoint.
+
+There is exactly one media query in the file, at 500px, and it swaps only the background image
+file — no sizing, spacing, or positioning changes inside it. See "Background image" above.
 
 Two things are easy to break:
 

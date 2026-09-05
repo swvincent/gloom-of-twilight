@@ -17,6 +17,7 @@ Live at <https://www.gloomoftwilight.com>.
 | `index.html` | The entire page. |
 | `style.css` | All styling. |
 | `gloom-of-twilight-background.png` | The background image, AI-generated (2304×1536). |
+| `gloom-of-twilight-background-phone.png` | Downscaled background for portrait phones (1536×1024). |
 | `fonts/` | Self-hosted webfonts. |
 | `CNAME` | Custom domain for GitHub Pages. |
 | `.nojekyll` | Tells GitHub Pages to serve the tree as-is instead of running Jekyll. |

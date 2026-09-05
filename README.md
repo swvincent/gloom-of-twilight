@@ -15,6 +15,7 @@ Live at <https://www.gloomoftwilight.com>.
 | Path | Purpose |
 | --- | --- |
 | `index.html` | The entire page. |
+| `404.html` | Custom not-found page, same layout with a different quote linking home. |
 | `style.css` | All styling. |
 | `gloom-of-twilight-background.png` | The background image, AI-generated (2304×1536). |
 | `gloom-of-twilight-background-phone.png` | Downscaled background for portrait phones (1536×1024). |

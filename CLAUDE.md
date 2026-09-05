@@ -9,9 +9,14 @@ previewed in a browser first. Show what changed and wait — "looks good" is not
 
 ## What this is
 
-A single static page (`index.html` + `style.css`) published to GitHub Pages at
+Two static pages (`index.html` and `404.html`, sharing `style.css`) published to GitHub Pages at
 `www.gloomoftwilight.com`: a full-bleed AI-generated image with a blackletter quote centered over
 it and its attribution in the bottom-right corner.
+
+`404.html` is the same layout with a different quote, wrapped in a link back to `/`. Pages serves
+it for a missing path at *any* depth, so every asset reference in it is root-relative (`/style.css`,
+`/fonts/...`, `/gloom-of-twilight-background.png`) — relative paths would 404 alongside it. Changes
+to the head of `index.html` usually need mirroring there, in root-relative form.
 
 There is no build step, no dependencies, no framework, and no test/lint/build commands. Do not add
 a toolchain unless asked.

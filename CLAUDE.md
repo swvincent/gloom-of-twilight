@@ -21,6 +21,17 @@ to the head of `index.html` usually need mirroring there, in root-relative form.
 There is no build step, no dependencies, no framework, and no test/lint/build commands. Do not add
 a toolchain unless asked.
 
+`README.md` restates several of the facts the checklists below cover — both background dimensions,
+the font filenames including Chomsky's `.woff` fallback, and all three icon sizes. Anything that
+triggers one of those checklists dates the README too.
+
+## The quotes
+
+Each page's quote appears **twice in its own file**: in the `<blockquote>` and, with the
+attribution, in `<meta name="description">`. Changing one and not the other fails silently — a
+stale description surfaces only in search results and link previews. The `<title>` does not carry
+the quote and does not need touching.
+
 ## Running it
 
 ```bash
@@ -42,23 +53,31 @@ Self-hosted in `fonts/` on purpose — the page makes zero third-party requests.
 sets the quote; Lato sets the attribution, uppercase and letterspaced. Unused font files have been
 deleted rather than kept around.
 
-Adding or swapping a font is a **three-place change**, and doing two of the three fails silently:
+Adding or swapping a font is a **four-place change**, and missing any one of them fails silently:
 
-1. the `.woff2` in `fonts/`
+1. the `.woff2` in `fonts/` — Chomsky also ships a `.woff` fallback listed as a second `src`, so
+   swap both files or neither
 2. an `@font-face` block in `style.css`
 3. a `<link rel="preload">` in `index.html`
+4. the same `<link rel="preload">` in `404.html`, root-relative
 
 Chomsky is a display face with limited glyph coverage. Any character added to the quote that it
 lacks falls back to a plain serif with no error — visually obvious only if you look closely. Check
 new text in the browser before considering it done:
 
 ```js
-// per character: identical advance width in all three families => no Chomsky glyph
+// Identical advance width in all three families => Chomsky has no glyph and the
+// character is being drawn by a fallback. Paste into the console on the served page.
+await document.fonts.load('100px Chomsky');
 const c = document.createElement('canvas').getContext('2d');
-c.font = '100px Chomsky';   const a = c.measureText(ch).width;
-c.font = '100px serif';     const b = c.measureText(ch).width;
-c.font = '100px monospace'; const d = c.measureText(ch).width;
+const w = (family, ch) => { c.font = `100px ${family}`; return c.measureText(ch).width; };
+[...'her robes are gloom of twilight...'].filter(ch =>
+  w('Chomsky', ch) === w('serif', ch) && w('Chomsky', ch) === w('monospace', ch)
+);  // => the characters with no Chomsky glyph
 ```
+
+`document.fonts.check()` does *not* answer this — with no `unicode-range` descriptor a face claims
+to cover everything, so it returns true for characters Chomsky lacks.
 
 ## Background image
 
@@ -66,16 +85,17 @@ The background is served in two sizes: `gloom-of-twilight-background.png` (2304�
 `gloom-of-twilight-background-phone.png` (1536×1024) for portrait phones. Both are 16-color
 indexed PNGs, which is why 3.5 megapixels fits in 468 KB.
 
-Swapping or resizing either one is a **three-place change**:
+Swapping or resizing either one is a **four-place change**:
 
 1. the `.png` at the repo root
 2. the `background-image` in `style.css` — the `body` rule, or the `@media (max-width: 500px)`
    override
 3. the matching `<link rel="preload" media="...">` in `index.html`
+4. the same `<link rel="preload" media="...">` in `404.html`, root-relative
 
-The two preloads' media conditions must stay exact complements of each other and must match the
-`@media` block. Skipping step 3 fails silently and makes phones download *both* files — slower
-than not having the phone variant at all.
+Each file's two preloads' media conditions must stay exact complements of each other and must match
+the `@media` block. Skipping step 3 or 4 fails silently and makes phones download *both* files —
+slower than not having the phone variant at all.
 
 Sizing rationale: the image is 3:2 and `background-size: cover` crops the sides on portrait phones,
 so the width needed is `1.5 × viewport height`, not viewport width. At the tallest common phone
@@ -108,15 +128,17 @@ All three take the same white-point lift (`-level 0%,72%`) before resizing. The 
 near-black and the figure sits only a few values off its ground; unlifted, the icon has no legible
 edge at small sizes. That lift is why the icons read slightly less dark than the page itself.
 
-**The PNGs are 256-color, and the 16-color rule above does not carry over to them.** The
-background's dither is invisible at 2304px but becomes coarse speckle once downscaled to icon size,
-and 16 colors also drains the blue out of the water. 256 is visually identical to an unquantized
-build at a third the weight.
+**The PNGs are quantized with a 256-color ceiling, and the 16-color rule above does not carry over
+to them.** The background's dither is invisible at 2304px but becomes coarse speckle once
+downscaled to icon size, and 16 colors also drains the blue out of the water. A 256-color ceiling
+is visually identical to an unquantized build at a third the weight.
 
-`icon-512.png` is declared with `sizes="512x512"` and is *not* fetched for the tab — verified in
-Chromium against a cold origin, which requested only `/favicon.ico`. Untested in Firefox and
-Safari. If that ever has to be airtight, the 512 belongs in a `manifest.webmanifest` rather than a
-`<link rel="icon">`, since manifest icons are never tab candidates.
+The crops land far under that ceiling on their own — 46 colors in `apple-touch-icon.png`, 64 in
+`icon-512.png`. That is the quantizer settling, not a target; don't pad a palette to exactly 256
+trying to match.
+
+`icon-512.png` is declared with `sizes="512x512"` so it is not a tab-icon candidate — verified in
+Chromium, untested elsewhere.
 
 ## Layout constraints
 
